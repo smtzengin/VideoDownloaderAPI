@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\utilities\\processrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:utilities\\processrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\services\\videoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:services\\videoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\services\\ivideoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:services\\ivideoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\models\\videoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:models\\videoinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\models\\downloadrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:models\\downloadrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\models\\downloadoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:models\\downloadoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\controllers\\videocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:controllers\\videocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T13:16:02.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VideoInfo.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\VideoInfo.cs",
+              "RelativeDocumentMoniker": "Models\\VideoInfo.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\VideoInfo.cs",
+              "RelativeToolTip": "Models\\VideoInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T12:04:18.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IVideoService.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Services\\IVideoService.cs",
+              "RelativeDocumentMoniker": "Services\\IVideoService.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Services\\IVideoService.cs",
+              "RelativeToolTip": "Services\\IVideoService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T12:08:25.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VideoService.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Services\\VideoService.cs",
+              "RelativeDocumentMoniker": "Services\\VideoService.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Services\\VideoService.cs",
+              "RelativeToolTip": "Services\\VideoService.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAiwIMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T12:08:32.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-17T13:00:34.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DownloadRequest.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\DownloadRequest.cs",
+              "RelativeDocumentMoniker": "Models\\DownloadRequest.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\DownloadRequest.cs",
+              "RelativeToolTip": "Models\\DownloadRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T12:04:13.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProcessRunner.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Utilities\\ProcessRunner.cs",
+              "RelativeDocumentMoniker": "Utilities\\ProcessRunner.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Utilities\\ProcessRunner.cs",
+              "RelativeToolTip": "Utilities\\ProcessRunner.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T13:07:37.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DownloadOption.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\DownloadOption.cs",
+              "RelativeDocumentMoniker": "Models\\DownloadOption.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\DownloadOption.cs",
+              "RelativeToolTip": "Models\\DownloadOption.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T12:04:09.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "VideoController.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Controllers\\VideoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\VideoController.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Controllers\\VideoController.cs",
+              "RelativeToolTip": "Controllers\\VideoController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T11:17:08.563Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
