@@ -1,56 +1,42 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using System.Text;
 
-namespace VideoDownloaderAPI.Utilities
+public class ProcessRunner
 {
-    public class ProcessRunner
+    public async Task<(string Output, string Error, int ExitCode)> RunProcessAsync(string fileName, string arguments)
     {
-        private readonly ILogger<ProcessRunner> logger;
-
-        public ProcessRunner(ILogger<ProcessRunner> logger)
+        var processStartInfo = new ProcessStartInfo
         {
-            this.logger = logger;
-        }
+            FileName = fileName,
+            Arguments = arguments,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
 
-        public async Task<(string output, string error, int exitCode)> RunProcessAsync(string fileName, string arguments)
+        using var process = new Process { StartInfo = processStartInfo };
+
+        var output = new StringBuilder();
+        var error = new StringBuilder();
+
+        process.OutputDataReceived += (sender, args) =>
         {
-            try
-            {
-                var process = new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = fileName,
-                        Arguments = arguments,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                    }
-                };
+            if (args.Data != null)
+                output.AppendLine(args.Data);
+        };
+        process.ErrorDataReceived += (sender, args) =>
+        {
+            if (args.Data != null)
+                error.AppendLine(args.Data);
+        };
 
-                process.Start();
+        process.Start();
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
 
-                string output = await process.StandardOutput.ReadToEndAsync();
-                string error = await process.StandardError.ReadToEndAsync();
-                await process.WaitForExitAsync();
+        await process.WaitForExitAsync();
 
-                logger.LogInformation($"Process '{fileName} {arguments}' exited with code {process.ExitCode}.");
-
-                if (!string.IsNullOrEmpty(output))
-                    logger.LogDebug($"Process Output: {output}");
-                if (!string.IsNullOrEmpty(error))
-                    logger.LogDebug($"Process Error: {error}");
-
-                return (output, error, process.ExitCode);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Process çalıştırılırken hata oluştu.");
-                throw;
-            }
-        }
+        return (output.ToString(), error.ToString(), process.ExitCode);
     }
 }

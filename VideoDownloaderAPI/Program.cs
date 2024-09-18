@@ -1,55 +1,45 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using VideoDownloaderAPI.Extractor;
 using VideoDownloaderAPI.Services;
-using VideoDownloaderAPI.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS Ayarları
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        });
-});
-
-builder.Services.AddRateLimiter(options =>
-{
-    options.AddFixedWindowLimiter("Fixed", opt =>
-    {
-        opt.PermitLimit = 100;
-        opt.Window = TimeSpan.FromMinutes(1);
-        opt.QueueLimit = 50;
-    });
-});
-
-
+// Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddScoped<ProcessRunner>();
+
+// Register ProcessRunner
+builder.Services.AddSingleton<ProcessRunner>();
+
+// Register platform-specific extractors
+builder.Services.AddTransient<YouTubeExtractor>();
+builder.Services.AddTransient<InstagramExtractor>();
+builder.Services.AddTransient<TikTokExtractor>();
+
+// Register IVideoExtractor implementations
+builder.Services.AddTransient<IVideoExtractor, YouTubeExtractor>();
+builder.Services.AddTransient<IVideoExtractor, InstagramExtractor>();
+builder.Services.AddTransient<IVideoExtractor, TikTokExtractor>();
+
+// Register IVideoService
 builder.Services.AddScoped<IVideoService, VideoService>();
 
-// Swagger Ayarları
+// Add logging
+builder.Services.AddLogging();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-app.UseCors("AllowAll");
-app.UseRateLimiter();
-// Geliştirme ortamında Swagger'ı kullan
+
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

@@ -6,6 +6,7 @@ namespace VideoDownloaderAPI.Services
     public interface IVideoService
     {
         Task<VideoInfo> GetVideoDetailsAsync(string videoUrl);
-        Task<string> DownloadVideoAsync(DownloadRequest request);
+        Task<byte[]> DownloadVideoAsync(DownloadRequest request);
     }
+
 }

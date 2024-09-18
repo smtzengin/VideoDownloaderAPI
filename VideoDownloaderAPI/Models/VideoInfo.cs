@@ -6,8 +6,10 @@ namespace VideoDownloaderAPI.Models
     {
         public string Title { get; set; }
         public string Url { get; set; }
-        public double? Duration { get; set; } // Nullable double
-        public int? ViewCount { get; set; }    // Nullable int
+        public string Thumbnail { get; set; }
+        public double? Duration { get; set; }
+        public int? ViewCount { get; set; }
         public List<DownloadOption> DownloadOptions { get; set; }
     }
+
 }

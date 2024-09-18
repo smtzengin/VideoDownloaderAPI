@@ -6,4 +6,5 @@
         public string SelectedFormat { get; set; }
         public string SelectedResolution { get; set; }
     }
+
 }

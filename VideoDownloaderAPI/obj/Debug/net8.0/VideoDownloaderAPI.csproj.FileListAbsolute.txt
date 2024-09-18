@@ -5,10 +5,14 @@ C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bi
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\VideoDownloaderAPI.runtimeconfig.json
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\VideoDownloaderAPI.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\VideoDownloaderAPI.pdb
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\FFMpegCore.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Instances.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\YoutubeDLSharp.dll
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.csproj.AssemblyReference.cache
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.AssemblyInfoInputs.cache
@@ -31,4 +35,3 @@ C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\ob
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.pdb
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.genruntimeconfig.cache
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\ref\VideoDownloaderAPI.dll
-C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\Newtonsoft.Json.dll

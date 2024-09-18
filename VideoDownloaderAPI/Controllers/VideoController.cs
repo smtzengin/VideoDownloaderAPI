@@ -41,7 +41,6 @@ namespace VideoDownloaderAPI.Controllers
                 logger.LogError(ex, "Video bilgileri alınırken hata oluştu.");
                 return BadRequest(new { error = ex.Message });
             }
-
         }
 
         /// <summary>
@@ -64,8 +63,14 @@ namespace VideoDownloaderAPI.Controllers
 
             try
             {
-                var downloadPath = await videoService.DownloadVideoAsync(request);
-                return Ok(new { message = "İndirme başladı.", downloadPath });
+                // Videoyu indir ve byte array olarak al
+                var videoBytes = await videoService.DownloadVideoAsync(request);
+
+                // HTTP yanıt başlığını ayarla
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=\"downloaded_video.mp4\"");
+
+                // Byte array döndür ve Content-Type başlığını video/mp4 olarak ayarla
+                return File(videoBytes, "video/mp4");
             }
             catch (Exception ex)
             {
@@ -73,6 +78,7 @@ namespace VideoDownloaderAPI.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+
 
         private bool IsValidUrl(string url)
         {
