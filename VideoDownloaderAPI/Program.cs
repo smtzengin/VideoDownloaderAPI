@@ -1,4 +1,5 @@
-﻿using VideoDownloaderAPI.Extractor;
+﻿using AspNetCoreRateLimit;
+using VideoDownloaderAPI.Extractor;
 using VideoDownloaderAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,12 @@ builder.Services.AddScoped<IVideoService, VideoService>();
 // Add logging
 builder.Services.AddLogging();
 
+// Add Rate Limiting services
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.AddInMemoryRateLimiting();
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -37,6 +44,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Add the rate limiting middleware
+app.UseIpRateLimiting();
 
 app.UseAuthorization();
 
