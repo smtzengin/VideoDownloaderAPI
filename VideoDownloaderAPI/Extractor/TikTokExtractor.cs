@@ -9,26 +9,16 @@ using System.Threading.Tasks;
 
 namespace VideoDownloaderAPI.Extractor
 {
-    public class TikTokExtractor : IVideoExtractor
+    public class TikTokExtractor : BaseExtractor
     {
-        private readonly string ytDlpPath;
-        private readonly ProcessRunner processRunner;
-        private readonly ILogger<TikTokExtractor> logger;
-
-        public TikTokExtractor(ProcessRunner processRunner, ILogger<TikTokExtractor> logger)
-        {
-            var toolsPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools");
-            ytDlpPath = Path.Combine(toolsPath, "yt-dlp.exe");
-            this.processRunner = processRunner;
-            this.logger = logger;
-        }
-
-        public async Task<VideoInfo> GetVideoDetailsAsync(string videoUrl)
+        public TikTokExtractor(ProcessRunner processRunner, ILogger<YouTubeExtractor> logger)
+            : base(processRunner, logger) { }
+        public override async Task<VideoInfo> GetVideoDetailsAsync(string videoUrl)
         {
             return await ExtractVideoInfoAsync(videoUrl);
         }
 
-        public async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
+        public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
 
@@ -75,12 +65,18 @@ namespace VideoDownloaderAPI.Extractor
             }
 
             var json = JObject.Parse(output);
+            var durationInSeconds = json["duration"]?.ToObject<double?>() ?? 0;
+            var durationTimeSpan = TimeSpan.FromSeconds(durationInSeconds);
+
             var info = new VideoInfo
             {
+                ChannelName = json["channel"]?.ToString() ?? "unknown",
+                ChannelFollowerCount = json["channel_follower_count"]?.ToObject<uint?>(),
                 Title = json["title"]?.ToString() ?? "video",
                 Url = json["webpage_url"]?.ToString() ?? videoUrl,
                 Thumbnail = json["thumbnail"]?.ToString(),
-                Duration = json["duration"]?.ToObject<double?>(),
+                DurationString = durationTimeSpan.ToString(@"hh\:mm\:ss"),
+                LikeCount = json["like_count"]?.ToObject<uint?>(),
                 ViewCount = json["view_count"]?.ToObject<int?>(),
                 DownloadOptions = new List<DownloadOption>()
             };

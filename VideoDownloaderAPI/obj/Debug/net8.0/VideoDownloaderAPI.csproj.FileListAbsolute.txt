@@ -35,3 +35,4 @@ C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\ob
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.pdb
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\VideoDownloaderAPI.genruntimeconfig.cache
 C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\obj\Debug\net8.0\ref\VideoDownloaderAPI.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\VideoDownloaderAPI\bin\Debug\net8.0\AspNetCoreRateLimit.dll

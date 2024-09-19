@@ -1,29 +1,53 @@
 ﻿using Newtonsoft.Json.Linq;
 using VideoDownloaderAPI.Models;
+using Microsoft.Extensions.Logging;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace VideoDownloaderAPI.Extractor
 {
-    public class YouTubeExtractor : IVideoExtractor
+    /// <summary>
+    /// YouTube'dan video detaylarını almak ve video indirme işlemlerini gerçekleştiren sınıf.
+    /// </summary>
+    public class YouTubeExtractor : BaseExtractor
     {
-        private readonly string ytDlpPath;
-        private readonly ProcessRunner processRunner;
-        private readonly ILogger<YouTubeExtractor> logger;
+        #region Constructor
 
+        /// <summary>
+        /// YouTubeExtractor sınıfı yapıcı metodu.
+        /// </summary>
+        /// <param name="processRunner">Dış işlem çalıştırıcısı.</param>
+        /// <param name="logger">Loglama servisi.</param>
         public YouTubeExtractor(ProcessRunner processRunner, ILogger<YouTubeExtractor> logger)
-        {
-            var toolsPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools");
-            ytDlpPath = Path.Combine(toolsPath, "yt-dlp.exe");
-            this.processRunner = processRunner;
-            this.logger = logger;
-        }
+            : base(processRunner, logger) { }
 
-        public async Task<VideoInfo> GetVideoDetailsAsync(string videoUrl)
+        #endregion
+
+        #region GetVideoDetailsAsync
+
+        /// <summary>
+        /// Verilen YouTube video URL'sine göre video bilgilerini alır.
+        /// </summary>
+        /// <param name="videoUrl">Video URL'si.</param>
+        /// <returns>VideoInfo nesnesi.</returns>
+        public override async Task<VideoInfo> GetVideoDetailsAsync(string videoUrl)
         {
             return await ExtractVideoInfoAsync(videoUrl);
         }
 
-        public async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
+        #endregion
+
+        #region DownloadVideoAsync
+
+        /// <summary>
+        /// Belirtilen YouTube video URL'si ve format ID'sine göre videoyu indirir.
+        /// </summary>
+        /// <param name="videoUrl">İndirilecek video URL'si.</param>
+        /// <param name="formatId">Video formatı ID'si.</param>
+        /// <param name="filePath">Videonun kaydedileceği dosya yolu.</param>
+        /// <returns>İndirilen dosyanın tam yolu.</returns>
+        public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
 
@@ -33,7 +57,6 @@ namespace VideoDownloaderAPI.Extractor
                 throw new FileNotFoundException($"ffmpeg bulunamadı: {ffmpegPath}");
             }
 
-            // AAC formatına dönüştürmek için --audio-format aac ve ses codec'ini zorlamak için --postprocessor-args '-c:a aac' ekledik
             var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
                             $"--audio-format aac --audio-quality 192K " +
                             $"--postprocessor-args \"-c:a aac\" " +
@@ -45,7 +68,7 @@ namespace VideoDownloaderAPI.Extractor
             var startTime = DateTime.Now;
 
             var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, arguments);
-            
+
             var endTime = DateTime.Now;
             logger.LogInformation($"İndirme süresi: {(endTime - startTime).TotalSeconds} saniye.");
 
@@ -59,6 +82,15 @@ namespace VideoDownloaderAPI.Extractor
             return filePath;
         }
 
+        #endregion
+
+        #region ExtractVideoInfoAsync
+
+        /// <summary>
+        /// Verilen YouTube video URL'sine göre video bilgilerini getirir.
+        /// </summary>
+        /// <param name="videoUrl">Video URL'si.</param>
+        /// <returns>VideoInfo nesnesi.</returns>
         private async Task<VideoInfo> ExtractVideoInfoAsync(string videoUrl)
         {
             var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, $"-j \"{videoUrl}\"");
@@ -70,12 +102,18 @@ namespace VideoDownloaderAPI.Extractor
             }
 
             var json = JObject.Parse(output);
+            var durationInSeconds = json["duration"]?.ToObject<double?>() ?? 0;
+            var durationTimeSpan = TimeSpan.FromSeconds(durationInSeconds);
+
             var info = new VideoInfo
             {
+                ChannelName = json["channel"]?.ToString() ?? "unknown",
+                ChannelFollowerCount = json["channel_follower_count"]?.ToObject<uint?>(),
                 Title = json["title"]?.ToString() ?? "video",
                 Url = json["webpage_url"]?.ToString() ?? videoUrl,
                 Thumbnail = json["thumbnail"]?.ToString(),
-                Duration = json["duration"]?.ToObject<double?>(),
+                DurationString = durationTimeSpan.ToString(@"hh\:mm\:ss"),
+                LikeCount = json["like_count"]?.ToObject<uint?>(),
                 ViewCount = json["view_count"]?.ToObject<int?>(),
                 DownloadOptions = new List<DownloadOption>()
             };
@@ -83,67 +121,7 @@ namespace VideoDownloaderAPI.Extractor
             var formats = json["formats"] as JArray;
             if (formats != null)
             {
-                // Video ve ses formatlarını ayırma
-                var videoFormats = formats
-                    .Where(f => f["vcodec"]?.ToString() != "none")
-                    .ToList();
-
-                var audioFormats = formats
-                    .Where(f => f["acodec"]?.ToString() != "none")
-                    .OrderByDescending(f => f["abr"]?.ToObject<int?>() ?? 0)
-                    .ToList();
-
-                // En iyi ses formatını seçme (en yüksek bitrate)
-                var bestAudio = audioFormats.FirstOrDefault();
-
-                // Yatay ve dikey çözünürlükler
-                var allowedResolutionsHorizontal = new[] { 144, 360, 480, 720, 1080, 1440, 2160 };
-                var allowedResolutionsVertical = new[] { 568, 1024, 1280, 1920 };
-
-                // Yatay ve dikey video çözünürlüklerini ayırt edelim
-                var bestVideoFormats = videoFormats
-                    .Where(f =>
-                    {
-                        var height = f["height"]?.ToObject<int?>() ?? 0;
-                        var width = f["width"]?.ToObject<int?>() ?? 0;
-
-                        // Shorts videolarının dikey olduğunu varsayıyoruz (yükseklik > genişlik)
-                        if (height > width)
-                        {
-                            return allowedResolutionsVertical.Contains(height);
-                        }
-                        else
-                        {
-                            return allowedResolutionsHorizontal.Contains(height);
-                        }
-                    })
-                    .GroupBy(f => f["height"]?.ToObject<int?>())
-                    .Select(g => g.OrderByDescending(f => f["tbr"]?.ToObject<double>() ?? 0).First())
-                    .OrderByDescending(f => f["height"]?.ToObject<int?>() ?? 0)
-                    .ToList();
-
-                foreach (var videoFormat in bestVideoFormats)
-                {
-                    var height = videoFormat["height"]?.ToObject<int?>() ?? 0;
-                    var resolution = $"{height}p";
-                    var fps = videoFormat["fps"]?.ToObject<int?>() ?? 0;
-                    var ext = videoFormat["ext"]?.ToString() ?? "mp4";
-
-                    if (bestAudio != null)
-                    {
-                        info.DownloadOptions.Add(new DownloadOption
-                        {
-                            Format = $"{videoFormat["format_id"]}+{bestAudio["format_id"]}",
-                            Resolution = resolution,
-                            Extension = ext,
-                            Url = videoUrl,
-                            FrameRate = fps
-                        });
-
-                        // Loglama
-                        logger.LogDebug($"YouTube Format - ID: {videoFormat["format_id"]}, Resolution: {resolution}, FPS: {fps}, Extension: {ext}, TBR: {videoFormat["tbr"]}");
-                    }
-                }
+                AddBestVideoAndAudioFormats(formats, info, videoUrl);
             }
             else
             {
@@ -158,5 +136,71 @@ namespace VideoDownloaderAPI.Extractor
 
             return info;
         }
+
+        #endregion
+
+        #region AddBestVideoAndAudioFormats
+
+        /// <summary>
+        /// Video ve ses formatlarını indirilebilir seçenekler listesine ekler.
+        /// </summary>
+        /// <param name="formats">Mevcut formatlar.</param>
+        /// <param name="info">Video bilgileri.</param>
+        /// <param name="videoUrl">Video URL'si.</param>
+        private void AddBestVideoAndAudioFormats(JArray formats, VideoInfo info, string videoUrl)
+        {
+            var allowedResolutionsHorizontal = new[] { 144, 360, 480, 720, 1080, 1440, 2160 };
+            var allowedResolutionsVertical = new[] { 568, 1024, 1280, 1920 };
+
+            var videoFormats = formats
+                .Where(f => f["vcodec"]?.ToString() != "none")
+                .ToList();
+
+            var bestAudio = GetBestAudioFormat(formats);
+
+            var bestVideoFormats = videoFormats
+                .Where(f =>
+                {
+                    var height = f["height"]?.ToObject<int?>() ?? 0;
+                    var width = f["width"]?.ToObject<int?>() ?? 0;
+
+                    // Shorts videolarının dikey olduğunu varsayıyoruz (yükseklik > genişlik)
+                    if (height > width)
+                    {
+                        return allowedResolutionsVertical.Contains(height);
+                    }
+                    else
+                    {
+                        return allowedResolutionsHorizontal.Contains(height);
+                    }
+                })
+                .GroupBy(f => f["height"]?.ToObject<int?>())
+                .Select(g => g.OrderByDescending(f => f["tbr"]?.ToObject<double>() ?? 0).First())
+                .OrderByDescending(f => f["height"]?.ToObject<int?>() ?? 0)
+                .ToList();
+
+            foreach (var videoFormat in bestVideoFormats)
+            {
+                var height = videoFormat["height"]?.ToObject<int?>() ?? 0;
+                var resolution = $"{height}p";
+                var fps = videoFormat["fps"]?.ToObject<int?>() ?? 0;
+                var ext = videoFormat["ext"]?.ToString() ?? "mp4";
+
+                if (bestAudio != null)
+                {
+                    info.DownloadOptions.Add(new DownloadOption
+                    {
+                        Format = $"{videoFormat["format_id"]}+{bestAudio["format_id"]}",
+                        Resolution = resolution,
+                        Extension = ext,
+                        Url = videoUrl,
+                        FrameRate = fps
+                    });
+
+                }
+            }
+        }
+
+        #endregion
     }
 }

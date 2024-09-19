@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using VideoDownloaderAPI.Models;
 using VideoDownloaderAPI.Services;
-using Microsoft.Extensions.Logging;
 
 namespace VideoDownloaderAPI.Controllers
 {
