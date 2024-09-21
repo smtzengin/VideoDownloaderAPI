@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b58b5155cc17e3f1ca8c523a9c4547c95cff2276")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e4494efaebf24a62509405f1620dd311991327a")]
 [assembly: System.Reflection.AssemblyProductAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

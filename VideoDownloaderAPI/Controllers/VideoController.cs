@@ -23,14 +23,14 @@ namespace VideoDownloaderAPI.Controllers
         /// <param name="videoUrl">İndirilecek videonun URL'si</param>
         /// <returns>Video bilgileri</returns>
         [HttpPost("info")]
-        public async Task<IActionResult> GetVideoInfo([FromBody] string videoUrl)
+        public async Task<IActionResult> GetVideoInfo([FromBody] VideoInfoRequestBody videoUrl)
         {
-            if (string.IsNullOrWhiteSpace(videoUrl) || !IsValidUrl(videoUrl))
+            if (string.IsNullOrWhiteSpace(videoUrl.VideoUrl) || !IsValidUrl(videoUrl.VideoUrl))
                 return BadRequest(new { error = "Geçerli bir Video URL gerekli." });
 
             try
             {
-                var info = await videoService.GetVideoDetailsAsync(videoUrl);
+                var info = await videoService.GetVideoDetailsAsync(videoUrl.VideoUrl);
                 return Ok(info);
             }
             catch (Exception ex)

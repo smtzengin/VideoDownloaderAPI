@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\extractor\\youtubeextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:extractor\\youtubeextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\controllers\\videocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:controllers\\videocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\models\\videoinforequestbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:models\\videoinforequestbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\extractor\\youtubeextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|solutionrelative:extractor\\youtubeextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{386D3C1C-BEA5-42F0-85AD-7299CBBED4D5}|VideoDownloaderAPI.csproj|c:\\users\\smtzn\\onedrive\\belgeler\\github\\videodownloaderapi\\videodownloaderapi\\extractor\\instagramextractor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,24 +34,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "VideoInfoRequestBody.cs",
+              "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\VideoInfoRequestBody.cs",
+              "RelativeDocumentMoniker": "Models\\VideoInfoRequestBody.cs",
+              "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\VideoInfoRequestBody.cs",
+              "RelativeToolTip": "Models\\VideoInfoRequestBody.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T20:11:32.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "YouTubeExtractor.cs",
               "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Extractor\\YouTubeExtractor.cs",
               "RelativeDocumentMoniker": "Extractor\\YouTubeExtractor.cs",
               "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Extractor\\YouTubeExtractor.cs",
               "RelativeToolTip": "Extractor\\YouTubeExtractor.cs",
-              "ViewState": "AQIAAIoAAAAAAAAAAAAwwMYAAAAAAAAA",
+              "ViewState": "AQIAAJEAAAAAAAAAAAAuwMYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-19T07:32:01.26Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "VideoInfo.cs",
               "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Models\\VideoInfo.cs",
               "RelativeDocumentMoniker": "Models\\VideoInfo.cs",
@@ -55,12 +72,11 @@
               "RelativeToolTip": "Models\\VideoInfo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:29:11.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:29:11.209Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InstagramExtractor.cs",
               "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Extractor\\InstagramExtractor.cs",
               "RelativeDocumentMoniker": "Extractor\\InstagramExtractor.cs",
@@ -68,12 +84,11 @@
               "RelativeToolTip": "Extractor\\InstagramExtractor.cs",
               "ViewState": "AQIAAFoAAAAAAAAAAAAAAHwAAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:27:17.137Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:27:17.137Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "BaseExtractor.cs",
               "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Extractor\\BaseExtractor.cs",
               "RelativeDocumentMoniker": "Extractor\\BaseExtractor.cs",
@@ -81,18 +96,17 @@
               "RelativeToolTip": "Extractor\\BaseExtractor.cs",
               "ViewState": "AQIAAAQAAAAAAAAAAAAwwCEAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T07:26:46.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T07:26:46.324Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "VideoController.cs",
               "DocumentMoniker": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Controllers\\VideoController.cs",
               "RelativeDocumentMoniker": "Controllers\\VideoController.cs",
               "ToolTip": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\Controllers\\VideoController.cs",
               "RelativeToolTip": "Controllers\\VideoController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAfAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-19T07:26:39.819Z",
               "EditorCaption": ""
