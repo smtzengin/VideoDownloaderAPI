@@ -1,24 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using VideoDownloaderAPI.Models;
-using Microsoft.Extensions.Logging;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using VideoDownloaderAPI.Utilities;
 
 namespace VideoDownloaderAPI.Extractor
 {
-    /// <summary>
-    /// YouTube'dan video detaylarını almak ve video indirme işlemlerini gerçekleştiren sınıf.
-    /// </summary>
     public class YouTubeExtractor : BaseExtractor
     {
         #region Constructor
 
-        /// <summary>
-        /// YouTubeExtractor sınıfı yapıcı metodu.
-        /// </summary>
-        /// <param name="processRunner">Dış işlem çalıştırıcısı.</param>
-        /// <param name="logger">Loglama servisi.</param>
         public YouTubeExtractor(ProcessRunner processRunner, ILogger<YouTubeExtractor> logger)
             : base(processRunner, logger) { }
 
@@ -26,11 +15,6 @@ namespace VideoDownloaderAPI.Extractor
 
         #region GetVideoDetailsAsync
 
-        /// <summary>
-        /// Verilen YouTube video URL'sine göre video bilgilerini alır.
-        /// </summary>
-        /// <param name="videoUrl">Video URL'si.</param>
-        /// <returns>VideoInfo nesnesi.</returns>
         public override async Task<VideoInfo> GetVideoDetailsAsync(string videoUrl)
         {
             return await ExtractVideoInfoAsync(videoUrl);
@@ -40,23 +24,9 @@ namespace VideoDownloaderAPI.Extractor
 
         #region DownloadVideoAsync
 
-        /// <summary>
-        /// Belirtilen YouTube video URL'si ve format ID'sine göre videoyu indirir.
-        /// </summary>
-        /// <param name="videoUrl">İndirilecek video URL'si.</param>
-        /// <param name="formatId">Video formatı ID'si.</param>
-        /// <param name="filePath">Videonun kaydedileceği dosya yolu.</param>
-        /// <returns>İndirilen dosyanın tam yolu.</returns>
         public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
-
-            if (!File.Exists(ffmpegPath))
-            {
-                logger.LogError($"ffmpeg yolunda ffmpeg bulunamadı: {ffmpegPath}");
-                throw new FileNotFoundException($"ffmpeg bulunamadı: {ffmpegPath}");
-            }
-
             var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
                             $"--audio-format aac --audio-quality 192K " +
                             $"--postprocessor-args \"-c:a aac\" " +
@@ -86,11 +56,6 @@ namespace VideoDownloaderAPI.Extractor
 
         #region ExtractVideoInfoAsync
 
-        /// <summary>
-        /// Verilen YouTube video URL'sine göre video bilgilerini getirir.
-        /// </summary>
-        /// <param name="videoUrl">Video URL'si.</param>
-        /// <returns>VideoInfo nesnesi.</returns>
         private async Task<VideoInfo> ExtractVideoInfoAsync(string videoUrl)
         {
             var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, $"-j \"{videoUrl}\"");
@@ -141,12 +106,6 @@ namespace VideoDownloaderAPI.Extractor
 
         #region AddBestVideoAndAudioFormats
 
-        /// <summary>
-        /// Video ve ses formatlarını indirilebilir seçenekler listesine ekler.
-        /// </summary>
-        /// <param name="formats">Mevcut formatlar.</param>
-        /// <param name="info">Video bilgileri.</param>
-        /// <param name="videoUrl">Video URL'si.</param>
         private void AddBestVideoAndAudioFormats(JArray formats, VideoInfo info, string videoUrl)
         {
             var allowedResolutionsHorizontal = new[] { 144, 360, 480, 720, 1080, 1440, 2160 };
@@ -186,6 +145,20 @@ namespace VideoDownloaderAPI.Extractor
                 var fps = videoFormat["fps"]?.ToObject<int?>() ?? 0;
                 var ext = videoFormat["ext"]?.ToString() ?? "mp4";
 
+
+                // Video bitrate (vbr) ve audio bitrate (abr) ayrı ayrı alınıyor
+                var videoBitrate = videoFormat["vbr"]?.ToObject<double?>() ?? 0;
+                var audioBitrate = bestAudio["abr"]?.ToObject<double?>() ?? 0; // bestAudio üzerinden abr alınıyor
+
+                logger.LogWarning($"VBR: {videoBitrate}, ABR: {audioBitrate}, Total: {videoBitrate + audioBitrate}");
+
+                // Süreyi saniye cinsinden hesaplama
+                double duration = ConvertHelper.ConvertDurationToSeconds(info.DurationString);
+
+                // Toplam bitrate ile dosya boyutunu MB olarak hesaplama
+                var totalMB = ConvertHelper.CalculateFileSizeInMB(videoBitrate + audioBitrate, duration);
+
+
                 if (bestAudio != null)
                 {
                     info.DownloadOptions.Add(new DownloadOption
@@ -194,9 +167,9 @@ namespace VideoDownloaderAPI.Extractor
                         Resolution = resolution,
                         Extension = ext,
                         Url = videoUrl,
-                        FrameRate = fps
+                        FrameRate = fps,
+                        DownloadSize = totalMB, // MB cinsinden
                     });
-
                 }
             }
         }

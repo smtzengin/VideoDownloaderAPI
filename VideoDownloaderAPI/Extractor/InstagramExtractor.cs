@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using VideoDownloaderAPI.Models;
-using Microsoft.Extensions.Logging;
-using System.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using VideoDownloaderAPI.Utilities;
 
 namespace VideoDownloaderAPI.Extractor
 {
@@ -52,7 +47,6 @@ namespace VideoDownloaderAPI.Extractor
         public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
-
             if (!File.Exists(ffmpegPath))
             {
                 logger.LogError($"ffmpeg yolunda ffmpeg bulunamadı: {ffmpegPath}");
@@ -170,7 +164,7 @@ namespace VideoDownloaderAPI.Extractor
 
             foreach (var format in bestVideoFormats)
             {
-               if(format != null)
+                if (format != null)
                 {
                     var formatId = format["format_id"]?.ToString() ?? "unknown";
                     var ext = format["ext"]?.ToString() ?? "mp4";
@@ -178,19 +172,34 @@ namespace VideoDownloaderAPI.Extractor
                     var resolution = $"{height}p";
                     var fps = format["fps"]?.ToObject<int?>() ?? 30;
 
+                    // Video bitrate (vbr) ve audio bitrate (abr) ayrı ayrı alınıyor
+                    var videoBitrate = format["vbr"]?.ToObject<double?>() ?? 0;
+                    var audioBitrate = bestAudio["abr"]?.ToObject<double?>() ?? 0; // bestAudio üzerinden abr alınıyor
+
+                    logger.LogWarning($"VBR: {videoBitrate}, ABR: {audioBitrate}, Total: {videoBitrate + audioBitrate}");
+
+                    // Süreyi saniye cinsinden hesaplama
+                    double duration = ConvertHelper.ConvertDurationToSeconds(info.DurationString);
+
+                    // Toplam bitrate ile dosya boyutunu MB olarak hesaplama
+                    var totalMB = ConvertHelper.CalculateFileSizeInMB(videoBitrate + audioBitrate, duration);
+
                     info.DownloadOptions.Add(new DownloadOption
                     {
                         Format = $"{format["format_id"]}+{bestAudio["format_id"]}",
                         Resolution = resolution,
                         Url = videoUrl,
                         Extension = ext,
-                        FrameRate = fps
+                        FrameRate = fps,
+                        DownloadSize = totalMB
                     });
-
                 }
             }
         }
 
+
         #endregion
+
+
     }
 }

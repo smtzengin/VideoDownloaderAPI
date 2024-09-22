@@ -7,6 +7,7 @@
         public string Url { get; set; }
         public string Extension { get; set; }
         public int? FrameRate { get; set; }
+        public double? DownloadSize { get; set; }
     }
 
 }

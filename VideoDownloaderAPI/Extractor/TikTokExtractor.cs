@@ -117,6 +117,9 @@ namespace VideoDownloaderAPI.Extractor
                     var height = format["height"]?.ToObject<int>() ?? 0;
                     var resolution = $"{height}p";
                     var fps = format["fps"]?.ToObject<int>() ?? 30;
+                    var fSize = format["filesize"]?.ToObject<double?>() ?? 0;
+
+                    double fSizeMB = Math.Round(fSize / (1024 * 1024), 2);
 
                     info.DownloadOptions.Add(new DownloadOption
                     {
@@ -124,7 +127,8 @@ namespace VideoDownloaderAPI.Extractor
                         Resolution = resolution,
                         Url = videoUrl,
                         Extension = ext,
-                        FrameRate = fps
+                        FrameRate = fps,
+                        DownloadSize = fSizeMB
                     });
 
                     // Loglama
