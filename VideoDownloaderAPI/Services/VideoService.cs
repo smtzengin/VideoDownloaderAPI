@@ -48,11 +48,6 @@ namespace VideoDownloaderAPI.Services
                 throw new Exception("Desteklenmeyen platform.");
             }
 
-            string safeTitle = await GetSafeTitleAsync(request.VideoUrl);
-            string downloadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Downloads");
-            if (!Directory.Exists(downloadFolder))
-                Directory.CreateDirectory(downloadFolder);
-
             var selectedOption = (await extractor.GetVideoDetailsAsync(request.VideoUrl)).DownloadOptions
                 .FirstOrDefault(o => o.Format == request.SelectedFormat);
 
@@ -61,15 +56,11 @@ namespace VideoDownloaderAPI.Services
                 throw new Exception("Seçilen format bulunamadı.");
             }
 
-            string fileName = $"{safeTitle}.{selectedOption.Extension}";
-            string filePath = Path.Combine(downloadFolder, fileName);
+            // Videoyu indir ve bellekte tut
+            var videoBytes = await extractor.DownloadVideoAsync(request.VideoUrl, request.SelectedFormat);
 
-            await extractor.DownloadVideoAsync(request.VideoUrl, request.SelectedFormat, filePath);
-
-            return await File.ReadAllBytesAsync(filePath); // Byte array olarak döndür.
+            return videoBytes; // Byte array olarak döndür
         }
-
-
         private IVideoExtractor GetExtractor(PlatformType platform)
         {
             switch (platform)

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Text;
 using VideoDownloaderAPI.Models;
 using VideoDownloaderAPI.Utilities;
 
@@ -24,33 +25,50 @@ namespace VideoDownloaderAPI.Extractor
 
         #region DownloadVideoAsync
 
-        public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
+        public override async Task<byte[]> DownloadVideoAsync(string videoUrl, string formatId)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
-            var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
-                            $"--audio-format aac --audio-quality 192K " +
-                            $"--postprocessor-args \"-c:a aac\" " +
-                            $"-o \"{filePath}\" \"{videoUrl}\" " +
-                            "--no-check-certificate --no-playlist --verbose";
 
-            logger.LogInformation($"Video indirilmeye başlıyor: {videoUrl}, Format ID: {formatId}.");
-
-            var startTime = DateTime.Now;
-
-            var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, arguments);
-
-            var endTime = DateTime.Now;
-            logger.LogInformation($"İndirme süresi: {(endTime - startTime).TotalSeconds} saniye.");
-
-            if (exitCode != 0)
+            if (!File.Exists(ffmpegPath))
             {
-                logger.LogError($"YouTube indirme hatası: {error}");
-                throw new Exception($"YouTube indirme hatası: {error}");
+                logger.LogError($"ffmpeg bulunamadı: {ffmpegPath}");
+                throw new FileNotFoundException($"ffmpeg bulunamadı: {ffmpegPath}");
             }
 
-            logger.LogInformation($"İndirme tamamlandı: {videoUrl}. Dosya konumu: {filePath}.");
-            return filePath;
+            // Geçici dosya yolu oluştur
+            string tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "Downloads");
+            if (!Directory.Exists(tempFolder))
+            {
+                Directory.CreateDirectory(tempFolder); // Downloads klasörü yoksa oluştur
+            }
+
+            string tempFilePath = Path.Combine(tempFolder, $"{Guid.NewGuid()}.mp4");
+
+            // Ses codec'ini AAC'ye dönüştürmek için gerekli argümanlar
+            var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
+                            $"--postprocessor-args \"ffmpeg:-c:a aac\" " +
+                            $"--no-check-certificate --no-playlist --verbose \"{videoUrl}\" -o \"{tempFilePath}\"";
+
+            logger.LogInformation($"Youtube videosu indirilmeye başlıyor: {videoUrl}, Geçici Dosya Yolu: {tempFilePath}");
+
+            // Komutu çalıştır ve dosyayı indir
+            await processRunner.RunProcessAsync(ytDlpPath, arguments);
+
+            // İndirilen dosyanın varlığını kontrol edin
+            if (!File.Exists(tempFilePath))
+            {
+                throw new FileNotFoundException($"Dosya bulunamadı: {tempFilePath}");
+            }
+
+            // Geçici dosyayı `byte[]` olarak belleğe oku
+            byte[] videoBytes = await File.ReadAllBytesAsync(tempFilePath);
+
+            // Geçici dosyayı sil
+            File.Delete(tempFilePath);
+
+            return videoBytes;
         }
+
 
         #endregion
 
@@ -58,7 +76,7 @@ namespace VideoDownloaderAPI.Extractor
 
         private async Task<VideoInfo> ExtractVideoInfoAsync(string videoUrl)
         {
-            var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, $"-j \"{videoUrl}\"");
+            var (output, error, exitCode) = await processRunner.RunProcessForOutputAsync(ytDlpPath, $"-j \"{videoUrl}\"");
 
             if (exitCode != 0)
             {

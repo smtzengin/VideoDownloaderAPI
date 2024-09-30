@@ -49,25 +49,25 @@ namespace VideoDownloaderAPI.Controllers
         public async Task<IActionResult> DownloadVideo([FromBody] DownloadRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.VideoUrl) ||
-                string.IsNullOrWhiteSpace(request.SelectedFormat) ||
-                string.IsNullOrWhiteSpace(request.SelectedResolution))
+                string.IsNullOrWhiteSpace(request.SelectedFormat))
             {
                 return BadRequest(new { error = "Gerekli tüm alanlar doldurulmalıdır." });
             }
 
-            if (!IsValidUrl(request.VideoUrl))
-                return BadRequest(new { error = "Geçerli bir Video URL gerekli." });
-
             try
             {
-                // Videoyu indir ve byte array olarak al
+                // Videoyu indir ve bellekte tut
                 var videoBytes = await videoService.DownloadVideoAsync(request);
 
-                // HTTP yanıt başlığını ayarla
-                Response.Headers.Add("Content-Disposition", $"attachment; filename=\"downloaded_video.mp4\"");
+                // Video uzunluğunu kontrol et
+                if (videoBytes == null || videoBytes.Length == 0)
+                {
+                    return BadRequest(new { error = "İndirme sırasında hata oluştu." });
+                }
 
-                // Byte array döndür ve Content-Type başlığını video/mp4 olarak ayarla
-                return File(videoBytes, "video/mp4");
+                // HTTP yanıtını doğru şekilde ayarlayın
+                Response.Headers.Add("Content-Disposition", $"attachment; filename=\"downloaded_video.mp4\"");
+                return File(videoBytes, "video/mp4", "downloaded_video.mp4");
             }
             catch (Exception ex)
             {

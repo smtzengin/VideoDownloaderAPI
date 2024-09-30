@@ -42,7 +42,7 @@ namespace VideoDownloaderAPI.Extractor
         /// <param name="formatId">İndirilecek video formatı ID'si.</param>
         /// <param name="filePath">Videonun kaydedileceği dosya yolu.</param>
         /// <returns>İndirilen video dosyasının yolu.</returns>
-        public abstract Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath);
+        public abstract Task<byte[]> DownloadVideoAsync(string videoUrl, string formatId);
 
         /// <summary>
         /// Verilen saniyeyi bir TimeSpan nesnesine dönüştürür.

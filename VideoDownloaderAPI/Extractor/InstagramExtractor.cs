@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Text;
 using VideoDownloaderAPI.Models;
 using VideoDownloaderAPI.Utilities;
 
@@ -37,54 +38,58 @@ namespace VideoDownloaderAPI.Extractor
 
         #region DownloadVideoAsync
 
-        /// <summary>
-        /// Belirtilen video URL'si ve format ID'sine göre videoyu indirir.
-        /// </summary>
-        /// <param name="videoUrl">İndirilecek video URL'si.</param>
-        /// <param name="formatId">Video formatı ID'si.</param>
-        /// <param name="filePath">Videonun kaydedileceği dosya yolu.</param>
-        /// <returns>İndirilen dosyanın tam yolu.</returns>
-        public override async Task<string> DownloadVideoAsync(string videoUrl, string formatId, string filePath)
+        public override async Task<byte[]> DownloadVideoAsync(string videoUrl, string formatId)
         {
             var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
+
             if (!File.Exists(ffmpegPath))
             {
-                logger.LogError($"ffmpeg yolunda ffmpeg bulunamadı: {ffmpegPath}");
+                logger.LogError($"ffmpeg bulunamadı: {ffmpegPath}");
                 throw new FileNotFoundException($"ffmpeg bulunamadı: {ffmpegPath}");
             }
 
-            var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
-                            $"--audio-format aac --audio-quality 192K " +
-                            $"--postprocessor-args \"-c:a aac\" " +
-                            $"-o \"{filePath}\" \"{videoUrl}\" " +
-                            "--no-check-certificate --no-playlist --verbose";
-
-            var startTime = DateTime.Now;
-            var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, arguments);
-            var endTime = DateTime.Now;
-
-            if (exitCode != 0)
+            // Geçici dosya yolu oluştur
+            string tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "Downloads");
+            if (!Directory.Exists(tempFolder))
             {
-                logger.LogError($"Instagram indirme hatası: {error}");
-                throw new Exception($"Instagram indirme hatası: {error}");
+                Directory.CreateDirectory(tempFolder); // Downloads klasörü yoksa oluştur
             }
 
-            logger.LogInformation($"İndirme tamamlandı: {videoUrl}. Dosya konumu: {filePath}.");
-            return filePath;
+            string tempFilePath = Path.Combine(tempFolder, $"{Guid.NewGuid()}.mp4");
+
+            // Ses codec'ini AAC'ye dönüştürmek için gerekli argümanlar
+            var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
+                            $"--postprocessor-args \"ffmpeg:-c:a aac\" " +
+                            $"--no-check-certificate --no-playlist --verbose \"{videoUrl}\" -o \"{tempFilePath}\"";
+
+            logger.LogInformation($"Instagram videosu indirilmeye başlıyor: {videoUrl}, Geçici Dosya Yolu: {tempFilePath}");
+
+            // Komutu çalıştır ve dosyayı indir
+            await processRunner.RunProcessAsync(ytDlpPath, arguments);
+
+            // İndirilen dosyanın varlığını kontrol edin
+            if (!File.Exists(tempFilePath))
+            {
+                throw new FileNotFoundException($"Dosya bulunamadı: {tempFilePath}");
+            }
+
+            // Geçici dosyayı `byte[]` olarak belleğe oku
+            byte[] videoBytes = await File.ReadAllBytesAsync(tempFilePath);
+
+            // Geçici dosyayı sil
+            File.Delete(tempFilePath);
+
+            return videoBytes;
         }
+
 
         #endregion
 
         #region ExtractVideoInfoAsync
 
-        /// <summary>
-        /// Verilen video URL'sine göre video bilgilerini getirir.
-        /// </summary>
-        /// <param name="videoUrl">Video URL'si.</param>
-        /// <returns>VideoInfo nesnesi.</returns>
         private async Task<VideoInfo> ExtractVideoInfoAsync(string videoUrl)
         {
-            var (output, error, exitCode) = await processRunner.RunProcessAsync(ytDlpPath, $"-j \"{videoUrl}\"");
+            var (output, error, exitCode) = await processRunner.RunProcessForOutputAsync(ytDlpPath, $"-j \"{videoUrl}\"");
 
             if (exitCode != 0)
             {
