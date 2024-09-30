@@ -40,7 +40,7 @@ namespace VideoDownloaderAPI.Extractor
 
         public override async Task<byte[]> DownloadVideoAsync(string videoUrl, string formatId)
         {
-            var ffmpegPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools", "ffmpeg.exe");
+            var ffmpegPath = "/app/Tools/ffmpeg"; // Docker Linux ortamında ffmpeg yolu
 
             if (!File.Exists(ffmpegPath))
             {
@@ -49,20 +49,14 @@ namespace VideoDownloaderAPI.Extractor
             }
 
             // Geçici dosya yolu oluştur
-            string tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "Downloads");
-            if (!Directory.Exists(tempFolder))
-            {
-                Directory.CreateDirectory(tempFolder); // Downloads klasörü yoksa oluştur
-            }
-
-            string tempFilePath = Path.Combine(tempFolder, $"{Guid.NewGuid()}.mp4");
+            string tempFilePath = Path.Combine("/tmp", $"{Guid.NewGuid()}.mp4");
 
             // Ses codec'ini AAC'ye dönüştürmek için gerekli argümanlar
             var arguments = $"-f {formatId} --merge-output-format mp4 --ffmpeg-location \"{ffmpegPath}\" " +
                             $"--postprocessor-args \"ffmpeg:-c:a aac\" " +
                             $"--no-check-certificate --no-playlist --verbose \"{videoUrl}\" -o \"{tempFilePath}\"";
 
-            logger.LogInformation($"Instagram videosu indirilmeye başlıyor: {videoUrl}, Geçici Dosya Yolu: {tempFilePath}");
+            logger.LogInformation($"TikTok videosu indirilmeye başlıyor: {videoUrl}, Geçici Dosya Yolu: {tempFilePath}");
 
             // Komutu çalıştır ve dosyayı indir
             await processRunner.RunProcessAsync(ytDlpPath, arguments);
@@ -81,6 +75,7 @@ namespace VideoDownloaderAPI.Extractor
 
             return videoBytes;
         }
+
 
 
         #endregion

@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("89d07058-f7fa-4c8c-8b5e-afe4512291cb")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02b4f273ccae117c52cfc6024e9828d4f100e96d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b36454ac631815054c81a28b16c5b78b38ee331c")]
 [assembly: System.Reflection.AssemblyProductAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VideoDownloaderAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

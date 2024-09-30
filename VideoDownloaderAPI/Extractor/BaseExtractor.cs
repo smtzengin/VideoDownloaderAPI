@@ -21,7 +21,7 @@ namespace VideoDownloaderAPI.Extractor
         protected BaseExtractor(ProcessRunner processRunner, ILogger logger)
         {
             var toolsPath = Path.Combine(Directory.GetCurrentDirectory(), "Tools");
-            ytDlpPath = Path.Combine(toolsPath, "yt-dlp.exe");
+            ytDlpPath = Path.Combine(toolsPath, "yt-dlp");
             this.processRunner = processRunner;
             this.logger = logger;
         }
