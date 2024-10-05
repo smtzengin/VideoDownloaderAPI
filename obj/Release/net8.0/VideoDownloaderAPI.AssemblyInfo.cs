@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("89d07058-f7fa-4c8c-8b5e-afe4512291cb")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("VideoDownloaderAPI")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+863be090a332e482c1065a0f7cf3f6239451e6d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("VideoDownloaderAPI")]

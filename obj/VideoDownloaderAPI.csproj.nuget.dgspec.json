@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj": {}
+    "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj": {
+    "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj",
+        "projectUniqueName": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj",
         "projectName": "VideoDownloaderAPI",
-        "projectPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj",
+        "projectPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI.csproj",
         "packagesPath": "C:\\Users\\smtzn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\VideoDownloaderAPI\\obj\\",
+        "outputPath": "C:\\Users\\smtzn\\OneDrive\\Belgeler\\Github\\VideoDownloaderAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
