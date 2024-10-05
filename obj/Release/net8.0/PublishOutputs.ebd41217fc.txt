@@ -1,0 +1,16 @@
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\VideoDownloaderAPI.exe
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\appsettings.Development.json
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\appsettings.json
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\VideoDownloaderAPI.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\VideoDownloaderAPI.deps.json
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\VideoDownloaderAPI.runtimeconfig.json
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\VideoDownloaderAPI.pdb
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\AspNetCoreRateLimit.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\FFMpegCore.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Instances.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Microsoft.OpenApi.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Newtonsoft.Json.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\smtzn\OneDrive\Belgeler\Github\VideoDownloaderAPI\obj\Docker\publish\YoutubeDLSharp.dll
